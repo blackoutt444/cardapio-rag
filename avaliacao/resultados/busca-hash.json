@@ -1,0 +1,484 @@
+{
+  "metadados": {
+    "data": "2026-11-09T21:59:07-04:00",
+    "commit": "3f64719",
+    "alteracoes_nao_commitadas": false,
+    "python": "3.14.5",
+    "sistema": "Windows-11",
+    "cpu": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+    "nucleos_logicos": 8,
+    "embeddings": "hash-2048",
+    "k_contexto": 5,
+    "carga_embedder_s": 0.0,
+    "indexacao_s": 0.01
+  },
+  "recuperacao": {
+    "hit@1": 0.76,
+    "hit@3": 0.88,
+    "hit@5": 0.96,
+    "mrr": 0.838,
+    "n": 25
+  },
+  "recuperacao_detalhes": [
+    {
+      "id": "q01",
+      "pergunta": "Tem algum prato com pirarucu?",
+      "esperados": [
+        "SR04"
+      ],
+      "recuperados": [
+        "SR04",
+        "CL13",
+        "CL04",
+        "FV03",
+        "SR05"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q02",
+      "pergunta": "Quero um hambúrguer vegano",
+      "esperados": [
+        "BP05"
+      ],
+      "recuperados": [
+        "BP05",
+        "BP03",
+        "BP02",
+        "BP01",
+        "FV09"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q03",
+      "pergunta": "Qual sobremesa leva mascarpone?",
+      "esperados": [
+        "CL10"
+      ],
+      "recuperados": [
+        "CL10",
+        "SR08",
+        "CL11",
+        "BP11",
+        "FV10"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q04",
+      "pergunta": "Vocês têm alguma massa sem glúten?",
+      "esperados": [
+        "CL13"
+      ],
+      "recuperados": [
+        "CL13",
+        "BP13",
+        "SR09",
+        "SR11",
+        "BP07"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q05",
+      "pergunta": "Tem hambúrguer apimentado?",
+      "esperados": [
+        "BP03"
+      ],
+      "recuperados": [
+        "BP03",
+        "BP04",
+        "BP02",
+        "BP01",
+        "FV01"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q06",
+      "pergunta": "Onde eu peço tacacá?",
+      "esperados": [
+        "SR01"
+      ],
+      "recuperados": [
+        "CL01",
+        "SR01",
+        "FV07",
+        "SR02",
+        "SR03"
+      ],
+      "hit@1": 0.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 0.5
+    },
+    {
+      "id": "q07",
+      "pergunta": "Uma opção vegana feita com leite de coco",
+      "esperados": [
+        "FV02",
+        "FV06",
+        "FV10"
+      ],
+      "recuperados": [
+        "FV10",
+        "BP10",
+        "FV02",
+        "FV06",
+        "FV05"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q08",
+      "pergunta": "Quais pratos levam cogumelos?",
+      "esperados": [
+        "CL04",
+        "FV03"
+      ],
+      "recuperados": [
+        "FV03",
+        "CL04",
+        "SR01",
+        "SR02",
+        "SR03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q09",
+      "pergunta": "Quanto custa a lasanha?",
+      "esperados": [
+        "CL01"
+      ],
+      "recuperados": [
+        "CL01",
+        "FV07",
+        "SR01",
+        "SR02",
+        "SR03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q10",
+      "pergunta": "Tem pizza vegetariana?",
+      "esperados": [
+        "CL06"
+      ],
+      "recuperados": [
+        "CL06",
+        "CL07",
+        "SR03",
+        "BP01",
+        "BP08"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q11",
+      "pergunta": "Quero um suco natural de fruta",
+      "esperados": [
+        "SR10",
+        "CL12",
+        "FV11"
+      ],
+      "recuperados": [
+        "SR10",
+        "CL12",
+        "BP09",
+        "FV11",
+        "SR01"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q12",
+      "pergunta": "Peixe assado na brasa",
+      "esperados": [
+        "SR03"
+      ],
+      "recuperados": [
+        "SR03",
+        "BP01",
+        "SR06",
+        "BP08",
+        "BP12"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q13",
+      "pergunta": "Tem lanche com tucumã?",
+      "esperados": [
+        "SR02"
+      ],
+      "recuperados": [
+        "SR02",
+        "FV04",
+        "SR01",
+        "FV08",
+        "SR03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q14",
+      "pergunta": "Sobremesa com açaí",
+      "esperados": [
+        "SR09"
+      ],
+      "recuperados": [
+        "SR09",
+        "CL10",
+        "SR08",
+        "CL11",
+        "BP11"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q15",
+      "pergunta": "O que tem de acompanhamento para o hambúrguer?",
+      "esperados": [
+        "BP07",
+        "BP08"
+      ],
+      "recuperados": [
+        "BP03",
+        "BP02",
+        "BP01",
+        "BP05",
+        "BP08"
+      ],
+      "hit@1": 0.0,
+      "hit@3": 0.0,
+      "hit@5": 1.0,
+      "rr": 0.2
+    },
+    {
+      "id": "q16",
+      "pergunta": "Tem algum curry?",
+      "esperados": [
+        "FV06"
+      ],
+      "recuperados": [
+        "FV06",
+        "SR01",
+        "SR02",
+        "SR03",
+        "SR04"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q17",
+      "pergunta": "Prato feito com jaca",
+      "esperados": [
+        "FV07"
+      ],
+      "recuperados": [
+        "FV07",
+        "CL04",
+        "CL03",
+        "CL09",
+        "FV03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q18",
+      "pergunta": "Alguma bebida fermentada?",
+      "esperados": [
+        "FV12"
+      ],
+      "recuperados": [
+        "SR11",
+        "BP12",
+        "BP13",
+        "FV12",
+        "SR10"
+      ],
+      "hit@1": 0.0,
+      "hit@3": 0.0,
+      "hit@5": 1.0,
+      "rr": 0.25
+    },
+    {
+      "id": "q19",
+      "pergunta": "Uma salada sem ingredientes de origem animal",
+      "esperados": [
+        "FV05",
+        "FV01"
+      ],
+      "recuperados": [
+        "FV05",
+        "BP05",
+        "BP13",
+        "SR09",
+        "FV09"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q20",
+      "pergunta": "Tem falafel ou homus?",
+      "esperados": [
+        "FV04"
+      ],
+      "recuperados": [
+        "FV04",
+        "SR01",
+        "SR02",
+        "SR03",
+        "SR04"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q21",
+      "pergunta": "Quero tomar um milkshake",
+      "esperados": [
+        "BP10"
+      ],
+      "recuperados": [
+        "BP10",
+        "BP02",
+        "SR01",
+        "SR02",
+        "SR03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q22",
+      "pergunta": "Massa com molho de tomate e manjericão",
+      "esperados": [
+        "CL03"
+      ],
+      "recuperados": [
+        "CL06",
+        "CL03",
+        "CL08",
+        "CL01",
+        "FV13"
+      ],
+      "hit@1": 0.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 0.5
+    },
+    {
+      "id": "q23",
+      "pergunta": "Tem alguma opção para criança?",
+      "esperados": [
+        "BP09"
+      ],
+      "recuperados": [
+        "SR01",
+        "SR02",
+        "SR03",
+        "SR04",
+        "SR05"
+      ],
+      "hit@1": 0.0,
+      "hit@3": 0.0,
+      "hit@5": 0.0,
+      "rr": 0.0
+    },
+    {
+      "id": "q24",
+      "pergunta": "Quero um caldo de peixe",
+      "esperados": [
+        "SR12",
+        "SR05"
+      ],
+      "recuperados": [
+        "SR12",
+        "SR06",
+        "BP07",
+        "SR01",
+        "SR02"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q25",
+      "pergunta": "Algo doce com chocolate",
+      "esperados": [
+        "BP11",
+        "FV09",
+        "CL10"
+      ],
+      "recuperados": [
+        "BP10",
+        "BP11",
+        "BP03",
+        "SR01",
+        "SR02"
+      ],
+      "hit@1": 0.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 0.5
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+-r requirements.txt
+# Separado porque puxa o PyTorch (centenas de MB). O CI usa o embedder lexical
+# (hash) e não precisa disso.
+sentence-transformers>=3.0
