@@ -40,7 +40,7 @@ from cardapio_rag.dados import carregar_cardapio
 from cardapio_rag.embeddings import criar_embedder
 from cardapio_rag.indice import IndiceVetorial
 from cardapio_rag.llm import criar_provedor
-from cardapio_rag.metricas import hit_at_k, media, reciprocal_rank
+from cardapio_rag.metricas import hit_at_k, media, precisao_citacoes, precos_no_texto, reciprocal_rank
 
 KS = (1, 3, 5)
 PASTA_RESULTADOS = RAIZ / "avaliacao" / "resultados"
@@ -88,6 +88,9 @@ def avaliar_geracao(assistente: Assistente, perguntas: list[dict]) -> tuple[dict
             detalhes.append(registro)
             continue
         citados = set(r.resposta.itens_ids)
+        # Preços que aparecem no texto precisam ser de algum item do contexto.
+        precos_contexto = [c.item.preco for c in r.contexto]
+        precos = precos_no_texto(r.resposta.resposta)
         registro.update(
             valido=True,
             tentativas=r.tentativas,
@@ -102,6 +105,11 @@ def avaliar_geracao(assistente: Assistente, perguntas: list[dict]) -> tuple[dict
                 if esperados
                 else not r.resposta.encontrado
             ),
+            precisao_citacoes=(
+                precisao_citacoes(r.resposta.itens_ids, esperados) if esperados and citados else None
+            ),
+            precos_no_texto=precos,
+            precos_conferem=all(any(abs(p - pc) < 0.005 for pc in precos_contexto) for p in precos),
             tempos_ms=r.tempos_ms,
             uso_llm=r.uso_llm,
         )
@@ -110,6 +118,8 @@ def avaliar_geracao(assistente: Assistente, perguntas: list[dict]) -> tuple[dict
     validos = [d for d in detalhes if d["valido"]]
     respondiveis = [d for d in detalhes if d["esperados"]]
     sem_resposta = [d for d in detalhes if not d["esperados"]]
+    com_citacao = [d for d in validos if d.get("precisao_citacoes") is not None]
+    com_preco = [d for d in validos if d["precos_no_texto"]]
     resumo = {
         "n": len(detalhes),
         "json_valido_1a": media([float(d.get("tentativas") == 1) for d in detalhes]),
@@ -117,8 +127,12 @@ def avaliar_geracao(assistente: Assistente, perguntas: list[dict]) -> tuple[dict
         "fidelidade": media([float(d["fiel"]) for d in validos]),
         "acerto": media([float(d.get("correto", False)) for d in respondiveis]),
         "abstencao": media([float(d.get("correto", False)) for d in sem_resposta]),
+        "precisao_citacoes": media([d["precisao_citacoes"] for d in com_citacao]),
+        "precos_conferem": media([float(d["precos_conferem"]) for d in com_preco]),
         "n_respondiveis": len(respondiveis),
         "n_sem_resposta": len(sem_resposta),
+        "n_com_citacao": len(com_citacao),
+        "n_com_preco": len(com_preco),
     }
     return resumo, detalhes
 
@@ -273,6 +287,10 @@ def markdown_geracao(ger: dict, rotulo_modelo: str) -> str:
         f"| Fidelidade (nenhum id fora do contexto) | {pct(ger['fidelidade'])} |",
         f"| Acerto nas perguntas com resposta ({ger['n_respondiveis']}) | {pct(ger['acerto'])} |",
         f"| Abstenção correta nas sem resposta ({ger['n_sem_resposta']}) | {pct(ger['abstencao'])} |",
+        f"| Precisão das citações ({ger['n_com_citacao']} respostas com citação) | "
+        f"{pct(ger['precisao_citacoes'])} |",
+        f"| Preços no texto conferem com o cardápio ({ger['n_com_preco']} respostas com preço) | "
+        f"{pct(ger['precos_conferem'])} |",
     ]
     return f"Geração com `{rotulo_modelo}` ({ger['n']} perguntas)\n\n" + "\n".join(linhas)
 

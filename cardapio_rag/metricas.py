@@ -7,6 +7,11 @@ deles aparecer para a busca ter acertado.
 
 from __future__ import annotations
 
+import re
+
+# "R$ 58,00", "R$58", "R$ 64,9", "R$ 1.234,50" e também "R$ 22.90".
+_PRECO = re.compile(r"R\$\s*(\d[\d.,]*\d|\d)")
+
 
 def hit_at_k(recuperados: list[str], esperados: set[str], k: int) -> float:
     """1.0 se pelo menos um id esperado aparece entre os k primeiros recuperados, senão 0.0.
@@ -39,6 +44,38 @@ def reciprocal_rank(recuperados: list[str], esperados: set[str]) -> float:
         if doc in esperados:
             return 1.0 / posicao
     return 0.0
+
+
+def precisao_citacoes(citados: list[str], esperados: set[str]) -> float:
+    """Fração dos ids citados pelo LLM que de fato respondem a pergunta.
+
+    A fidelidade só garante que o id estava no contexto; esta métrica pega citação
+    irrelevante (ex.: citar um tacacá numa pergunta sobre falafel). 0.0 se nada foi citado.
+
+    >>> precisao_citacoes(["FV04", "SR01"], {"FV04"})
+    0.5
+    """
+    if not citados:
+        return 0.0
+    return sum(1 for c in citados if c in esperados) / len(citados)
+
+
+def precos_no_texto(texto: str) -> list[float]:
+    """Valores em reais mencionados no texto, para conferir com o preço dos itens.
+
+    >>> precos_no_texto("Custa R$ 58,00, e a bebida R$9.")
+    [58.0, 9.0]
+    """
+    valores = []
+    for bruto in _PRECO.findall(texto):
+        # Separador seguido de 1 ou 2 dígitos no fim = centavos; os outros são de milhar.
+        partes = re.match(r"^(.*?)[.,](\d{1,2})$", bruto)
+        if partes:
+            inteiro = re.sub(r"[.,]", "", partes.group(1))
+            valores.append(float(f"{inteiro}.{partes.group(2)}"))
+        else:
+            valores.append(float(re.sub(r"[.,]", "", bruto)))
+    return valores
 
 
 def media(valores: list[float]) -> float:

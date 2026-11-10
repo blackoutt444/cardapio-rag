@@ -1,6 +1,6 @@
 import pytest
 
-from cardapio_rag.metricas import hit_at_k, media, reciprocal_rank
+from cardapio_rag.metricas import hit_at_k, media, precisao_citacoes, precos_no_texto, reciprocal_rank
 
 
 @pytest.mark.parametrize(
@@ -60,6 +60,37 @@ def test_mrr_com_exemplo_conhecido():
         reciprocal_rank(["X", "Y"], {"B"}),
     ]
     assert media(rrs) == pytest.approx(4 / 9)
+
+
+@pytest.mark.parametrize(
+    ("citados", "esperados", "esperado"),
+    [
+        (["A"], {"A"}, 1.0),
+        (["A", "B"], {"A"}, 0.5),  # citação extra irrelevante
+        (["A", "B"], {"A", "B", "C"}, 1.0),  # não precisa citar todos os relevantes
+        (["X"], {"A"}, 0.0),
+        ([], {"A"}, 0.0),  # nada citado
+    ],
+)
+def test_precisao_citacoes(citados, esperados, esperado):
+    assert precisao_citacoes(citados, esperados) == pytest.approx(esperado)
+
+
+@pytest.mark.parametrize(
+    ("texto", "esperado"),
+    [
+        ("A lasanha custa R$ 58,00.", [58.0]),
+        ("Sai por R$58", [58.0]),
+        ("R$ 64,9 no Sabor do Rio", [64.9]),
+        ("Total de R$ 1.234,50", [1234.5]),
+        ("Custa R$ 22.90", [22.9]),  # ponto como separador decimal
+        ("Burger R$ 36,90 e batata R$ 19,90.", [36.9, 19.9]),
+        ("Não encontrei esse prato.", []),
+        ("São 3 opções", []),  # número sem R$ não é preço
+    ],
+)
+def test_precos_no_texto(texto, esperado):
+    assert precos_no_texto(texto) == pytest.approx(esperado)
 
 
 def test_media():
