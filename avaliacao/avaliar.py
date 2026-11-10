@@ -44,6 +44,7 @@ from cardapio_rag.metricas import hit_at_k, media, precisao_citacoes, precos_no_
 
 KS = (1, 3, 5)
 PASTA_RESULTADOS = RAIZ / "avaliacao" / "resultados"
+CAMINHOS_AVALIADOS = ("cardapio_rag", "dados", "avaliacao/*.py", "avaliacao/perguntas.json")
 
 
 def pct(valor: float) -> str:
@@ -228,7 +229,10 @@ def metadados_execucao(config: Config, nome_embedder: str) -> dict:
     meta = {
         "data": datetime.now().astimezone().isoformat(timespec="seconds"),
         "commit": _git("rev-parse", "--short", "HEAD"),
-        "alteracoes_nao_commitadas": bool(_git("status", "--porcelain", "--untracked-files=no")),
+        # Só o que muda o resultado: código, dados e perguntas (editar o README não conta).
+        "alteracoes_nao_commitadas": bool(
+            _git("status", "--porcelain", "--untracked-files=no", "--", *CAMINHOS_AVALIADOS)
+        ),
         "python": platform.python_version(),
         "sistema": platform.platform(terse=True),
         "cpu": nome_cpu(),

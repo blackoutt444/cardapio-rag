@@ -54,7 +54,8 @@ CONFIGURACOES = [
     ("sem decodificação restrita", {"schema": False, "opcoes": {}, "k": 5}),
     ("contexto menor (k=3)", {"schema": True, "opcoes": {}, "k": 3}),
 ]
-AQUECIMENTO = "Tem hambúrguer apimentado?"
+# Fora do conjunto medido: se fosse uma das perguntas, ela inteira ficaria em cache.
+AQUECIMENTO = "Tem algum prato com camarão?"
 
 
 def fracao_em_gpu(url: str, modelo: str) -> float | None:
@@ -113,6 +114,7 @@ def main() -> None:
     indice = IndiceVetorial(carregar_cardapio(config.cardapio_path), criar_embedder(config))
     perguntas = json.loads((RAIZ / "avaliacao" / "perguntas.json").read_text(encoding="utf-8"))["perguntas"]
     perguntas = [p["pergunta"] for p in perguntas[: args.repeticoes]]
+    assert AQUECIMENTO not in perguntas, "a pergunta de aquecimento não pode estar entre as medidas"
     # Lido antes das medições para registrar o commit que foi de fato medido.
     meta = metadados_execucao(config, indice.embedder.nome)
 
