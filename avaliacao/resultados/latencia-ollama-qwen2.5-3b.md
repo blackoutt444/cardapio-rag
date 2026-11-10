@@ -2,15 +2,15 @@ Benchmark de latência do LLM (5 perguntas por configuração)
 
 | Configuração | Camadas na GPU | Tokens de entrada | Prompt eval | Tokens de saída | Geração | Chamada ao LLM (mediana) | JSON válido |
 |---|---|---|---|---|---|---|---|
-| padrão (schema, GPU automática) | 25% | 599 | 90 tok/s | 51 | 3.0 tok/s | 23.6 s | 5/5 |
-| só CPU (num_gpu=0) | 0% | 599 | 52 tok/s | 48 | 6.7 tok/s | 20.6 s | 5/5 |
-| sem decodificação restrita | 0% | 599 | 3587 tok/s | 48 | 7.8 tok/s | 6.4 s | 5/5 |
-| contexto menor (k=3) | 0% | 460 | 492 tok/s | 47 | 7.8 tok/s | 7.4 s | 5/5 |
+| padrão (schema, GPU automática) | 25% | 599 | 82 tok/s | 48 | 3.1 tok/s | 23.4 s | 5/5 |
+| só CPU (num_gpu=0) | 0% | 599 | 50 tok/s | 48 | 8.7 tok/s | 17.7 s | 5/5 |
+| sem decodificação restrita | 25% | 599 | 74 tok/s | 48 | 3.2 tok/s | 23.4 s | 5/5 |
+| contexto menor (k=3) | 25% | 460 | 67 tok/s | 47 | 3.2 tok/s | 21.9 s | 5/5 |
 
 Ambiente da execução
 
-- **data**: 2026-11-09T22:06:22-04:00
-- **commit**: 3f64719
+- **data**: 2026-11-10T00:54:07-04:00
+- **commit**: b3f237d
 - **alteracoes_nao_commitadas**: False
 - **python**: 3.14.5
 - **sistema**: Windows-11
