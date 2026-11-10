@@ -1,0 +1,1832 @@
+{
+  "metadados": {
+    "data": "2026-11-09T22:06:57-04:00",
+    "commit": "3f64719",
+    "alteracoes_nao_commitadas": false,
+    "python": "3.14.5",
+    "sistema": "Windows-11",
+    "cpu": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+    "nucleos_logicos": 8,
+    "embeddings": "intfloat/multilingual-e5-small",
+    "k_contexto": 5,
+    "carga_embedder_s": 21.7,
+    "indexacao_s": 1.59,
+    "provedor": "ollama",
+    "modelo": "qwen2.5:3b",
+    "ollama_versao": "0.40.15",
+    "modelo_digest": "357c53fb659c",
+    "parametros": "3.1B",
+    "quantizacao": "Q4_K_M",
+    "fracao_em_gpu": 0.25
+  },
+  "recuperacao": {
+    "hit@1": 0.92,
+    "hit@3": 0.96,
+    "hit@5": 1.0,
+    "mrr": 0.95,
+    "n": 25
+  },
+  "recuperacao_detalhes": [
+    {
+      "id": "q01",
+      "pergunta": "Tem algum prato com pirarucu?",
+      "esperados": [
+        "SR04"
+      ],
+      "recuperados": [
+        "SR04",
+        "SR06",
+        "CL05",
+        "SR05",
+        "SR12"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q02",
+      "pergunta": "Quero um hambúrguer vegano",
+      "esperados": [
+        "BP05"
+      ],
+      "recuperados": [
+        "BP05",
+        "BP03",
+        "BP09",
+        "BP02",
+        "FV11"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q03",
+      "pergunta": "Qual sobremesa leva mascarpone?",
+      "esperados": [
+        "CL10"
+      ],
+      "recuperados": [
+        "CL10",
+        "BP06",
+        "FV10",
+        "CL05",
+        "BP10"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q04",
+      "pergunta": "Vocês têm alguma massa sem glúten?",
+      "esperados": [
+        "CL13"
+      ],
+      "recuperados": [
+        "CL13",
+        "BP13",
+        "SR09",
+        "FV10",
+        "BP07"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q05",
+      "pergunta": "Tem hambúrguer apimentado?",
+      "esperados": [
+        "BP03"
+      ],
+      "recuperados": [
+        "BP03",
+        "BP05",
+        "BP02",
+        "BP01",
+        "BP06"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q06",
+      "pergunta": "Onde eu peço tacacá?",
+      "esperados": [
+        "SR01"
+      ],
+      "recuperados": [
+        "SR01",
+        "SR02",
+        "FV08",
+        "SR09",
+        "SR07"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q07",
+      "pergunta": "Uma opção vegana feita com leite de coco",
+      "esperados": [
+        "FV02",
+        "FV06",
+        "FV10"
+      ],
+      "recuperados": [
+        "FV02",
+        "FV10",
+        "FV06",
+        "FV09",
+        "FV05"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q08",
+      "pergunta": "Quais pratos levam cogumelos?",
+      "esperados": [
+        "CL04",
+        "FV03"
+      ],
+      "recuperados": [
+        "FV03",
+        "CL04",
+        "SR02",
+        "BP08",
+        "BP09"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q09",
+      "pergunta": "Quanto custa a lasanha?",
+      "esperados": [
+        "CL01"
+      ],
+      "recuperados": [
+        "CL01",
+        "SR02",
+        "CL12",
+        "FV03",
+        "CL13"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q10",
+      "pergunta": "Tem pizza vegetariana?",
+      "esperados": [
+        "CL06"
+      ],
+      "recuperados": [
+        "CL06",
+        "CL03",
+        "BP05",
+        "BP08",
+        "CL08"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q11",
+      "pergunta": "Quero um suco natural de fruta",
+      "esperados": [
+        "SR10",
+        "CL12",
+        "FV11"
+      ],
+      "recuperados": [
+        "SR10",
+        "CL12",
+        "FV11",
+        "CL03",
+        "BP12"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q12",
+      "pergunta": "Peixe assado na brasa",
+      "esperados": [
+        "SR03"
+      ],
+      "recuperados": [
+        "SR03",
+        "BP13",
+        "FV03",
+        "BP03",
+        "BP01"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q13",
+      "pergunta": "Tem lanche com tucumã?",
+      "esperados": [
+        "SR02"
+      ],
+      "recuperados": [
+        "SR02",
+        "SR01",
+        "FV08",
+        "SR05",
+        "FV04"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q14",
+      "pergunta": "Sobremesa com açaí",
+      "esperados": [
+        "SR09"
+      ],
+      "recuperados": [
+        "SR09",
+        "CL10",
+        "FV10",
+        "BP11",
+        "SR03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q15",
+      "pergunta": "O que tem de acompanhamento para o hambúrguer?",
+      "esperados": [
+        "BP07",
+        "BP08"
+      ],
+      "recuperados": [
+        "BP03",
+        "BP09",
+        "BP06",
+        "BP08",
+        "BP05"
+      ],
+      "hit@1": 0.0,
+      "hit@3": 0.0,
+      "hit@5": 1.0,
+      "rr": 0.25
+    },
+    {
+      "id": "q16",
+      "pergunta": "Tem algum curry?",
+      "esperados": [
+        "FV06"
+      ],
+      "recuperados": [
+        "FV06",
+        "FV07",
+        "FV01",
+        "FV03",
+        "BP04"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q17",
+      "pergunta": "Prato feito com jaca",
+      "esperados": [
+        "FV07"
+      ],
+      "recuperados": [
+        "FV07",
+        "SR04",
+        "BP03",
+        "BP07",
+        "CL03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q18",
+      "pergunta": "Alguma bebida fermentada?",
+      "esperados": [
+        "FV12"
+      ],
+      "recuperados": [
+        "FV12",
+        "BP13",
+        "FV11",
+        "SR11",
+        "SR09"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q19",
+      "pergunta": "Uma salada sem ingredientes de origem animal",
+      "esperados": [
+        "FV05",
+        "FV01"
+      ],
+      "recuperados": [
+        "FV05",
+        "BP05",
+        "SR09",
+        "FV09",
+        "FV07"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q20",
+      "pergunta": "Tem falafel ou homus?",
+      "esperados": [
+        "FV04"
+      ],
+      "recuperados": [
+        "FV04",
+        "BP06",
+        "SR01",
+        "SR03",
+        "FV03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q21",
+      "pergunta": "Quero tomar um milkshake",
+      "esperados": [
+        "BP10"
+      ],
+      "recuperados": [
+        "BP10",
+        "CL10",
+        "CL02",
+        "SR01",
+        "FV11"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q22",
+      "pergunta": "Massa com molho de tomate e manjericão",
+      "esperados": [
+        "CL03"
+      ],
+      "recuperados": [
+        "CL06",
+        "CL03",
+        "CL08",
+        "CL13",
+        "FV13"
+      ],
+      "hit@1": 0.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 0.5
+    },
+    {
+      "id": "q23",
+      "pergunta": "Tem alguma opção para criança?",
+      "esperados": [
+        "BP09"
+      ],
+      "recuperados": [
+        "BP09",
+        "SR01",
+        "BP13",
+        "CL10",
+        "CL02"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q24",
+      "pergunta": "Quero um caldo de peixe",
+      "esperados": [
+        "SR12",
+        "SR05"
+      ],
+      "recuperados": [
+        "SR12",
+        "SR01",
+        "SR06",
+        "SR08",
+        "FV03"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    },
+    {
+      "id": "q25",
+      "pergunta": "Algo doce com chocolate",
+      "esperados": [
+        "BP11",
+        "FV09",
+        "CL10"
+      ],
+      "recuperados": [
+        "BP11",
+        "CL10",
+        "BP10",
+        "SR02",
+        "CL02"
+      ],
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "rr": 1.0
+    }
+  ],
+  "geracao": {
+    "n": 31,
+    "json_valido_1a": 1.0,
+    "json_valido": 1.0,
+    "fidelidade": 1.0,
+    "acerto": 0.96,
+    "abstencao": 1.0,
+    "precisao_citacoes": 0.9583333333333334,
+    "precos_conferem": 1.0,
+    "n_respondiveis": 25,
+    "n_sem_resposta": 6,
+    "n_com_citacao": 24,
+    "n_com_preco": 7
+  },
+  "latencia": {
+    "n_quentes": 30,
+    "quente": {
+      "embedding": {
+        "mediana_ms": 30.7605,
+        "p90_ms": 49.9325
+      },
+      "busca": {
+        "mediana_ms": 0.122,
+        "p90_ms": 0.1682
+      },
+      "prompt": {
+        "mediana_ms": 0.0485,
+        "p90_ms": 0.07329999999999999
+      },
+      "llm": {
+        "mediana_ms": 26479.7995,
+        "p90_ms": 32249.960699999996
+      },
+      "total": {
+        "mediana_ms": 26515.6645,
+        "p90_ms": 32280.4832
+      },
+      "carga": {
+        "mediana_ms": 13.1752,
+        "p90_ms": 15.593710000000002
+      },
+      "prompt_eval": {
+        "mediana_ms": 10845.252499999999,
+        "p90_ms": 13111.3259
+      },
+      "geracao": {
+        "mediana_ms": 15198.3585,
+        "p90_ms": 21644.513
+      }
+    },
+    "frio": {
+      "total_ms": 36003.506,
+      "tokens_entrada": 599,
+      "tokens_saida": 53,
+      "carga_s": 7.3308705,
+      "prompt_eval_s": 9.256208,
+      "geracao_s": 17.31888
+    },
+    "tokens": {
+      "entrada_mediana": 582.5,
+      "saida_mediana": 46.5,
+      "prompt_eval_tok_s": 52.829544211900576,
+      "geracao_tok_s": 3.0295134459618387
+    }
+  },
+  "geracao_detalhes": [
+    {
+      "id": "q01",
+      "pergunta": "Tem algum prato com pirarucu?",
+      "esperados": [
+        "SR04"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Existe o prato Pirarucu de casaca no Sabor do Rio, que custa R$ 64,90.",
+      "itens_ids": [
+        "SR04"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "SR04",
+        "SR06",
+        "CL05",
+        "SR05",
+        "SR12"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [
+        64.9
+      ],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 44.79,
+        "busca": 0.113,
+        "prompt": 0.056,
+        "llm": 35958.508,
+        "total": 36003.506
+      },
+      "uso_llm": {
+        "tokens_entrada": 599,
+        "tokens_saida": 53,
+        "carga_s": 7.3308705,
+        "prompt_eval_s": 9.256208,
+        "geracao_s": 17.31888
+      }
+    },
+    {
+      "id": "q02",
+      "pergunta": "Quero um hambúrguer vegano",
+      "esperados": [
+        "BP05"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "O Burger de grão-de-bico é vegano e custa R$ 36,90 no Brasa & Pão.",
+      "itens_ids": [
+        "BP05"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "BP05",
+        "BP03",
+        "BP09",
+        "BP02",
+        "FV11"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [
+        36.9
+      ],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 36.51,
+        "busca": 0.098,
+        "prompt": 0.04,
+        "llm": 23552.334,
+        "total": 23589.01
+      },
+      "uso_llm": {
+        "tokens_entrada": 607,
+        "tokens_saida": 52,
+        "carga_s": 0.014169,
+        "prompt_eval_s": 6.36444,
+        "geracao_s": 17.055594
+      }
+    },
+    {
+      "id": "q03",
+      "pergunta": "Qual sobremesa leva mascarpone?",
+      "esperados": [
+        "CL10"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Tiramisú do Cantina Dona Lúcia leva mascarpone.",
+      "itens_ids": [
+        "CL10"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "CL10",
+        "BP06",
+        "FV10",
+        "CL05",
+        "BP10"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 32.107,
+        "busca": 0.086,
+        "prompt": 0.034,
+        "llm": 21038.747,
+        "total": 21070.996
+      },
+      "uso_llm": {
+        "tokens_entrada": 589,
+        "tokens_saida": 41,
+        "carga_s": 0.013022,
+        "prompt_eval_s": 7.469944,
+        "geracao_s": 13.442816
+      }
+    },
+    {
+      "id": "q04",
+      "pergunta": "Vocês têm alguma massa sem glúten?",
+      "esperados": [
+        "CL13"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Sim, o Cantina Dona Lúcia oferece Penne de arroz ao pesto sem glúten.",
+      "itens_ids": [
+        "CL13"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "CL13",
+        "BP13",
+        "SR09",
+        "FV10",
+        "BP07"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 40.476,
+        "busca": 0.153,
+        "prompt": 0.103,
+        "llm": 26400.155,
+        "total": 26440.937
+      },
+      "uso_llm": {
+        "tokens_entrada": 583,
+        "tokens_saida": 48,
+        "carga_s": 0.0135968,
+        "prompt_eval_s": 10.567492,
+        "geracao_s": 15.700963
+      }
+    },
+    {
+      "id": "q05",
+      "pergunta": "Tem hambúrguer apimentado?",
+      "esperados": [
+        "BP03"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Tem o Picante do Chef, que é um hambúrguer apimentado no Brasa & Pão.",
+      "itens_ids": [
+        "BP03"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "BP03",
+        "BP05",
+        "BP02",
+        "BP01",
+        "BP06"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 49.178,
+        "busca": 0.092,
+        "prompt": 0.037,
+        "llm": 30543.686,
+        "total": 30593.025
+      },
+      "uso_llm": {
+        "tokens_entrada": 629,
+        "tokens_saida": 48,
+        "carga_s": 0.013967,
+        "prompt_eval_s": 14.593753,
+        "geracao_s": 15.820836
+      }
+    },
+    {
+      "id": "q06",
+      "pergunta": "Onde eu peço tacacá?",
+      "esperados": [
+        "SR01"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "O Tacacá pode ser pedido no Sabor do Rio.",
+      "itens_ids": [
+        "SR01"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "SR01",
+        "SR02",
+        "FV08",
+        "SR09",
+        "SR07"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 37.841,
+        "busca": 0.152,
+        "prompt": 0.073,
+        "llm": 22373.829,
+        "total": 22411.922
+      },
+      "uso_llm": {
+        "tokens_entrada": 573,
+        "tokens_saida": 36,
+        "carga_s": 0.0148994,
+        "prompt_eval_s": 10.552492,
+        "geracao_s": 11.657321
+      }
+    },
+    {
+      "id": "q07",
+      "pergunta": "Uma opção vegana feita com leite de coco",
+      "esperados": [
+        "FV02",
+        "FV06",
+        "FV10"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Banana-da-terra cozida no leite de coco com pimentões e dendê, arroz integral e farofa (Moqueca de banana-da-terra, Folha Verde) ou Mousse de maracujá (Folha Verde)",
+      "itens_ids": [
+        "FV02",
+        "FV09"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "FV02",
+        "FV10",
+        "FV06",
+        "FV09",
+        "FV05"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 0.5,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 37.422,
+        "busca": 0.155,
+        "prompt": 0.06,
+        "llm": 39103.155,
+        "total": 39140.817
+      },
+      "uso_llm": {
+        "tokens_entrada": 610,
+        "tokens_saida": 85,
+        "carga_s": 0.0155922,
+        "prompt_eval_s": 10.906345,
+        "geracao_s": 28.079557
+      }
+    },
+    {
+      "id": "q08",
+      "pergunta": "Quais pratos levam cogumelos?",
+      "esperados": [
+        "CL04",
+        "FV03"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Estrogonofe de cogumelos da Folha Verde e Risoto de cogumelos da Cantina Dona Lúcia levam cogumelos.",
+      "itens_ids": [
+        "FV03",
+        "CL04"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "FV03",
+        "CL04",
+        "SR02",
+        "BP08",
+        "BP09"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 27.32,
+        "busca": 0.082,
+        "prompt": 0.034,
+        "llm": 32252.964,
+        "total": 32280.423
+      },
+      "uso_llm": {
+        "tokens_entrada": 570,
+        "tokens_saida": 66,
+        "carga_s": 0.009824,
+        "prompt_eval_s": 10.325078,
+        "geracao_s": 21.828707
+      }
+    },
+    {
+      "id": "q09",
+      "pergunta": "Quanto custa a lasanha?",
+      "esperados": [
+        "CL01"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "A lasanha à bolonhesa custa R$ 58,00 no Cantina Dona Lúcia.",
+      "itens_ids": [
+        "CL01"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "CL01",
+        "SR02",
+        "CL12",
+        "FV03",
+        "CL13"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [
+        58.0
+      ],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 24.679,
+        "busca": 0.14,
+        "prompt": 0.05,
+        "llm": 27569.494,
+        "total": 27594.386
+      },
+      "uso_llm": {
+        "tokens_entrada": 605,
+        "tokens_saida": 51,
+        "carga_s": 0.0115944,
+        "prompt_eval_s": 10.764548,
+        "geracao_s": 16.695412
+      }
+    },
+    {
+      "id": "q10",
+      "pergunta": "Tem pizza vegetariana?",
+      "esperados": [
+        "CL06"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Sim, o prato Pizza margherita (média) da Cantina Dona Lúcia é vegetariano.",
+      "itens_ids": [
+        "CL06"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "CL06",
+        "CL03",
+        "BP05",
+        "BP08",
+        "CL08"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 25.404,
+        "busca": 0.084,
+        "prompt": 0.035,
+        "llm": 26065.151,
+        "total": 26090.699
+      },
+      "uso_llm": {
+        "tokens_entrada": 582,
+        "tokens_saida": 47,
+        "carga_s": 0.0091784,
+        "prompt_eval_s": 10.599712,
+        "geracao_s": 15.358777
+      }
+    },
+    {
+      "id": "q11",
+      "pergunta": "Quero um suco natural de fruta",
+      "esperados": [
+        "SR10",
+        "CL12",
+        "FV11"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Suco de taperebá no Sabor do Rio ou Suco de laranja na Cantina Dona Lúcia são opções de suco natural de fruta.",
+      "itens_ids": [
+        "SR10",
+        "CL12"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "SR10",
+        "CL12",
+        "FV11",
+        "CL03",
+        "BP12"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 31.163,
+        "busca": 0.168,
+        "prompt": 0.04,
+        "llm": 32249.627,
+        "total": 32281.025
+      },
+      "uso_llm": {
+        "tokens_entrada": 577,
+        "tokens_saida": 66,
+        "carga_s": 0.0130205,
+        "prompt_eval_s": 10.509554,
+        "geracao_s": 21.624047
+      }
+    },
+    {
+      "id": "q12",
+      "pergunta": "Peixe assado na brasa",
+      "esperados": [
+        "SR03"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Tambaqui assado na brasa | Sabor do Rio | R$ 79,90",
+      "itens_ids": [
+        "SR03"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "SR03",
+        "BP13",
+        "FV03",
+        "BP03",
+        "BP01"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [
+        79.9
+      ],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 24.812,
+        "busca": 0.116,
+        "prompt": 0.036,
+        "llm": 25729.596,
+        "total": 25754.599
+      },
+      "uso_llm": {
+        "tokens_entrada": 601,
+        "tokens_saida": 46,
+        "carga_s": 0.0095631,
+        "prompt_eval_s": 10.636407,
+        "geracao_s": 14.988574
+      }
+    },
+    {
+      "id": "q13",
+      "pergunta": "Tem lanche com tucumã?",
+      "esperados": [
+        "SR02"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "X-Caboquinho | Sabor do Rio | R$ 18,00",
+      "itens_ids": [
+        "SR02"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "SR02",
+        "SR01",
+        "FV08",
+        "SR05",
+        "FV04"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [
+        18.0
+      ],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 28.86,
+        "busca": 0.088,
+        "prompt": 0.038,
+        "llm": 25391.962,
+        "total": 25420.984
+      },
+      "uso_llm": {
+        "tokens_entrada": 582,
+        "tokens_saida": 43,
+        "carga_s": 0.0133284,
+        "prompt_eval_s": 11.318537,
+        "geracao_s": 13.971034
+      }
+    },
+    {
+      "id": "q14",
+      "pergunta": "Sobremesa com açaí",
+      "esperados": [
+        "SR09"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Açaí na tigela do Sabor do Rio custa R$ 22,00.",
+      "itens_ids": [
+        "SR09"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "SR09",
+        "CL10",
+        "FV10",
+        "BP11",
+        "SR03"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [
+        22.0
+      ],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 30.744,
+        "busca": 0.122,
+        "prompt": 0.053,
+        "llm": 26559.444,
+        "total": 26590.392
+      },
+      "uso_llm": {
+        "tokens_entrada": 572,
+        "tokens_saida": 46,
+        "carga_s": 0.0108588,
+        "prompt_eval_s": 11.483979,
+        "geracao_s": 14.979262
+      }
+    },
+    {
+      "id": "q15",
+      "pergunta": "O que tem de acompanhamento para o hambúrguer?",
+      "esperados": [
+        "BP07",
+        "BP08"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "O acompanhamento para o hambúrguer é Anéis de cebola empanados e fritos, com molho barbecue.",
+      "itens_ids": [
+        "BP08"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "BP03",
+        "BP09",
+        "BP06",
+        "BP08",
+        "BP05"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 31.327,
+        "busca": 0.152,
+        "prompt": 0.047,
+        "llm": 27230.643,
+        "total": 27262.19
+      },
+      "uso_llm": {
+        "tokens_entrada": 598,
+        "tokens_saida": 52,
+        "carga_s": 0.0139911,
+        "prompt_eval_s": 10.073174,
+        "geracao_s": 17.036993999
+      }
+    },
+    {
+      "id": "q16",
+      "pergunta": "Tem algum curry?",
+      "esperados": [
+        "FV06"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Existe um Curry de lentilha vermelha no cardápio da Folha Verde.",
+      "itens_ids": [
+        "FV06"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "FV06",
+        "FV07",
+        "FV01",
+        "FV03",
+        "BP04"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 25.521,
+        "busca": 0.09,
+        "prompt": 0.034,
+        "llm": 25394.075,
+        "total": 25419.744
+      },
+      "uso_llm": {
+        "tokens_entrada": 612,
+        "tokens_saida": 43,
+        "carga_s": 0.0127885,
+        "prompt_eval_s": 11.019287,
+        "geracao_s": 14.250972
+      }
+    },
+    {
+      "id": "q17",
+      "pergunta": "Prato feito com jaca",
+      "esperados": [
+        "FV07"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Prato feito com jaca é Escondidinho de jaca do restaurante Folha Verde.",
+      "itens_ids": [
+        "FV07"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "FV07",
+        "SR04",
+        "BP03",
+        "BP07",
+        "CL03"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 28.53,
+        "busca": 0.119,
+        "prompt": 0.053,
+        "llm": 28069.861,
+        "total": 28098.588
+      },
+      "uso_llm": {
+        "tokens_entrada": 590,
+        "tokens_saida": 46,
+        "carga_s": 0.0114071,
+        "prompt_eval_s": 12.929534,
+        "geracao_s": 15.03794
+      }
+    },
+    {
+      "id": "q18",
+      "pergunta": "Alguma bebida fermentada?",
+      "esperados": [
+        "FV12"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Encontramos Kombucha de hibisco da Folha Verde, que é uma bebida fermentada.",
+      "itens_ids": [
+        "FV12"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "FV12",
+        "BP13",
+        "FV11",
+        "SR11",
+        "SR09"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 28.066,
+        "busca": 0.088,
+        "prompt": 0.04,
+        "llm": 26066.515,
+        "total": 26094.741
+      },
+      "uso_llm": {
+        "tokens_entrada": 555,
+        "tokens_saida": 47,
+        "carga_s": 0.0127383,
+        "prompt_eval_s": 10.439057,
+        "geracao_s": 15.508292
+      }
+    },
+    {
+      "id": "q19",
+      "pergunta": "Uma salada sem ingredientes de origem animal",
+      "esperados": [
+        "FV05",
+        "FV01"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "A salada Caesar vegana do restaurante Folha Verde atende a sua requisição, sem ingredientes de origem animal.",
+      "itens_ids": [
+        "FV05"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "FV05",
+        "BP05",
+        "SR09",
+        "FV09",
+        "FV07"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 36.954,
+        "busca": 0.247,
+        "prompt": 0.059,
+        "llm": 28058.88,
+        "total": 28096.163
+      },
+      "uso_llm": {
+        "tokens_entrada": 610,
+        "tokens_saida": 52,
+        "carga_s": 0.0127752,
+        "prompt_eval_s": 10.906302,
+        "geracao_s": 17.012607
+      }
+    },
+    {
+      "id": "q20",
+      "pergunta": "Tem falafel ou homus?",
+      "esperados": [
+        "FV04"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "O Wrap de falafel e o Falafel de Folha Verde contêm falafel e homus.",
+      "itens_ids": [
+        "FV04",
+        "SR01"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "FV04",
+        "BP06",
+        "SR01",
+        "SR03",
+        "FV03"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 0.5,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 26.666,
+        "busca": 0.122,
+        "prompt": 0.055,
+        "llm": 30414.437,
+        "total": 30441.31
+      },
+      "uso_llm": {
+        "tokens_entrada": 596,
+        "tokens_saida": 53,
+        "carga_s": 0.0102901,
+        "prompt_eval_s": 12.747026,
+        "geracao_s": 17.565838
+      }
+    },
+    {
+      "id": "q21",
+      "pergunta": "Quero tomar um milkshake",
+      "esperados": [
+        "BP10"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Milkshake de doce de leite está disponível no Brasa & Pão por R$ 22,90.",
+      "itens_ids": [
+        "BP10"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "BP10",
+        "CL10",
+        "CL02",
+        "SR01",
+        "FV11"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [
+        22.9
+      ],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 24.938,
+        "busca": 0.08,
+        "prompt": 0.035,
+        "llm": 27686.342,
+        "total": 27711.436
+      },
+      "uso_llm": {
+        "tokens_entrada": 598,
+        "tokens_saida": 50,
+        "carga_s": 0.0089792,
+        "prompt_eval_s": 11.123103,
+        "geracao_s": 16.440669999
+      }
+    },
+    {
+      "id": "q22",
+      "pergunta": "Massa com molho de tomate e manjericão",
+      "esperados": [
+        "CL03"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Massa com molho de tomate e manjericão pode ser encontrada no prato Nhoque ao sugo da Cantina Dona Lúcia.",
+      "itens_ids": [
+        "CL03"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "CL06",
+        "CL03",
+        "CL08",
+        "CL13",
+        "FV13"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 29.267,
+        "busca": 0.09,
+        "prompt": 0.041,
+        "llm": 28291.022,
+        "total": 28320.446
+      },
+      "uso_llm": {
+        "tokens_entrada": 595,
+        "tokens_saida": 58,
+        "carga_s": 0.0090158,
+        "prompt_eval_s": 9.096403,
+        "geracao_s": 19.072118
+      }
+    },
+    {
+      "id": "q23",
+      "pergunta": "Tem alguma opção para criança?",
+      "esperados": [
+        "BP09"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "O Combo Kids do Brasa & Pão é uma opção adequada para crianças.",
+      "itens_ids": [
+        "BP09"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "BP09",
+        "SR01",
+        "BP13",
+        "CL10",
+        "CL02"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 27.915,
+        "busca": 0.131,
+        "prompt": 0.058,
+        "llm": 24057.541,
+        "total": 24085.67
+      },
+      "uso_llm": {
+        "tokens_entrada": 576,
+        "tokens_saida": 41,
+        "carga_s": 0.0116446,
+        "prompt_eval_s": 10.556728,
+        "geracao_s": 13.383538
+      }
+    },
+    {
+      "id": "q24",
+      "pergunta": "Quero um caldo de peixe",
+      "esperados": [
+        "SR12",
+        "SR05"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": false,
+      "resposta": "Não encontrei pratos de caldo de peixe no cardápio.",
+      "itens_ids": [],
+      "ids_descartados": [],
+      "contexto": [
+        "SR12",
+        "SR01",
+        "SR06",
+        "SR08",
+        "FV03"
+      ],
+      "fiel": true,
+      "correto": false,
+      "precisao_citacoes": null,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 26.608,
+        "busca": 0.116,
+        "prompt": 0.04,
+        "llm": 25728.411,
+        "total": 25755.218
+      },
+      "uso_llm": {
+        "tokens_entrada": 578,
+        "tokens_saida": 37,
+        "carga_s": 0.0133422,
+        "prompt_eval_s": 13.431671,
+        "geracao_s": 12.182617
+      }
+    },
+    {
+      "id": "q25",
+      "pergunta": "Algo doce com chocolate",
+      "esperados": [
+        "BP11",
+        "FV09",
+        "CL10"
+      ],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": true,
+      "resposta": "Brownie de chocolate meio amargo com sorvete de creme no Brasa & Pão ou Biscoito champanhe com café, creme de mascarpone e cacau em pó no Cantina Dona Lúcia são opções doce com chocolate.",
+      "itens_ids": [
+        "BP11",
+        "CL10"
+      ],
+      "ids_descartados": [],
+      "contexto": [
+        "BP11",
+        "CL10",
+        "BP10",
+        "SR02",
+        "CL02"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": 1.0,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 30.777,
+        "busca": 0.17,
+        "prompt": 0.076,
+        "llm": 41472.037,
+        "total": 41503.088
+      },
+      "uso_llm": {
+        "tokens_entrada": 580,
+        "tokens_saida": 85,
+        "carga_s": 0.0138639,
+        "prompt_eval_s": 12.268615,
+        "geracao_s": 29.085802
+      }
+    },
+    {
+      "id": "q26",
+      "pergunta": "Vocês têm sushi ou temaki?",
+      "esperados": [],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": false,
+      "resposta": "Não encontramos sushi ou temaki no cardápio dos restaurantes listados.",
+      "itens_ids": [],
+      "ids_descartados": [],
+      "contexto": [
+        "CL04",
+        "FV03",
+        "SR06",
+        "SR09",
+        "SR03"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": null,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 27.433,
+        "busca": 0.084,
+        "prompt": 0.038,
+        "llm": 24250.738,
+        "total": 24278.334
+      },
+      "uso_llm": {
+        "tokens_entrada": 595,
+        "tokens_saida": 37,
+        "carga_s": 0.0142305,
+        "prompt_eval_s": 10.784203,
+        "geracao_s": 13.33495
+      }
+    },
+    {
+      "id": "q27",
+      "pergunta": "Tem feijoada?",
+      "esperados": [],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": false,
+      "resposta": "Não encontramos feijoada no cardápio dos restaurantes disponíveis.",
+      "itens_ids": [],
+      "ids_descartados": [],
+      "contexto": [
+        "FV07",
+        "FV04",
+        "FV03",
+        "SR02",
+        "BP07"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": null,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 67.299,
+        "busca": 0.128,
+        "prompt": 0.056,
+        "llm": 22323.194,
+        "total": 22390.712
+      },
+      "uso_llm": {
+        "tokens_entrada": 576,
+        "tokens_saida": 35,
+        "carga_s": 0.0156073,
+        "prompt_eval_s": 10.399246,
+        "geracao_s": 11.746159
+      }
+    },
+    {
+      "id": "q28",
+      "pergunta": "Qual o horário de funcionamento dos restaurantes?",
+      "esperados": [],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": false,
+      "resposta": "Não foi encontrado nenhum informação sobre o horário de funcionamento dos restaurantes no contexto fornecido.",
+      "itens_ids": [],
+      "ids_descartados": [],
+      "contexto": [
+        "FV11",
+        "CL10",
+        "SR02",
+        "SR01",
+        "CL04"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": null,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 94.548,
+        "busca": 0.131,
+        "prompt": 0.062,
+        "llm": 27858.075,
+        "total": 27952.872
+      },
+      "uso_llm": {
+        "tokens_entrada": 580,
+        "tokens_saida": 42,
+        "carga_s": 0.0171562,
+        "prompt_eval_s": 13.799359,
+        "geracao_s": 13.880218
+      }
+    },
+    {
+      "id": "q29",
+      "pergunta": "Vende cerveja artesanal?",
+      "esperados": [],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": false,
+      "resposta": "Não encontrei nenhum prato que vende cerveja artesanal no cardápio fornecido.",
+      "itens_ids": [],
+      "ids_descartados": [],
+      "contexto": [
+        "FV12",
+        "CL03",
+        "FV11",
+        "BP13",
+        "BP08"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": null,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 56.723,
+        "busca": 0.174,
+        "prompt": 0.065,
+        "llm": 27868.884,
+        "total": 27925.878
+      },
+      "uso_llm": {
+        "tokens_entrada": 555,
+        "tokens_saida": 45,
+        "carga_s": 0.0140629,
+        "prompt_eval_s": 13.02027,
+        "geracao_s": 14.70805
+      }
+    },
+    {
+      "id": "q30",
+      "pergunta": "Tem pizza de chocolate?",
+      "esperados": [],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": false,
+      "resposta": "Não há pizza com chocolate no cardápio dos restaurantes mencionados.",
+      "itens_ids": [],
+      "ids_descartados": [],
+      "contexto": [
+        "CL06",
+        "CL07",
+        "BP11",
+        "BP03",
+        "CL10"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": null,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 45.026,
+        "busca": 0.16,
+        "prompt": 0.1,
+        "llm": 24047.563,
+        "total": 24092.88
+      },
+      "uso_llm": {
+        "tokens_entrada": 567,
+        "tokens_saida": 36,
+        "carga_s": 0.0190998,
+        "prompt_eval_s": 11.782435,
+        "geracao_s": 12.093961
+      }
+    },
+    {
+      "id": "q31",
+      "pergunta": "Tem churrasco de picanha?",
+      "esperados": [],
+      "valido": true,
+      "tentativas": 1,
+      "encontrado": false,
+      "resposta": "Não há churrasco de picanha no cardápio dos restaurantes listados.",
+      "itens_ids": [],
+      "ids_descartados": [],
+      "contexto": [
+        "BP06",
+        "BP03",
+        "SR07",
+        "SR02",
+        "CL08"
+      ],
+      "fiel": true,
+      "correto": true,
+      "precisao_citacoes": null,
+      "precos_no_texto": [],
+      "precos_conferem": true,
+      "tempos_ms": {
+        "embedding": 44.941,
+        "busca": 0.145,
+        "prompt": 0.062,
+        "llm": 25880.566,
+        "total": 25925.755
+      },
+      "uso_llm": {
+        "tokens_entrada": 580,
+        "tokens_saida": 39,
+        "carga_s": 0.01484,
+        "prompt_eval_s": 13.075732,
+        "geracao_s": 12.673064
+      }
+    }
+  ]
+}
