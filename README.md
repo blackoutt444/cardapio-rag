@@ -162,11 +162,22 @@ Notebook (Intel i5-8265U com GeForce MX130 de 2 GB, Windows 11, na tomada), mode
 
 Com o modelo frio, a primeira pergunta levou 36.0 s, dos quais 7.3 s para carregar o modelo. A recuperação inteira custa menos de 0.2% do tempo: o gargalo é a inferência do LLM. No CI (AMD EPYC, 4 vCPUs, só CPU, [run 42739591694](https://github.com/blackoutt444/cardapio-rag/actions/runs/42739591694)), o mesmo pipeline levou 9.2 s de mediana: 6.4 s de prompt eval a 93 tok/s e 2.8 s de geração a 15.6 tok/s.
 
-O [benchmark](avaliacao/latencia.py) ([resultado](avaliacao/resultados/latencia-ollama-qwen2.5-3b.md)) mostra por que o notebook gera tão devagar. Nele, o Ollama colocou 25% do modelo na MX130 e, com o modelo dividido entre CPU e GPU, a geração ficou em **3.0 tok/s**. Forçando só CPU (`OLLAMA_NUM_GPU=0`), a geração subiu para **6.7 tok/s**, mas o processamento do prompt caiu de 90 para 52 tok/s. Na soma, a chamada caiu de 23.6 s para 20.6 s.
+Para descobrir o que pesa dentro da chamada ao LLM, o [benchmark](avaliacao/latencia.py) roda as mesmas 5 perguntas em quatro configurações. Antes de cada uma, o modelo é descarregado, para não herdar a divisão CPU/GPU nem o cache de prompt da anterior; uma chamada de aquecimento com uma pergunta fora do conjunto absorve a carga. Resultado no notebook, commit `b3f237d` ([tabela e metadados](avaliacao/resultados/latencia-ollama-qwen2.5-3b.md)):
 
-As outras duas linhas do benchmark (sem decodificação restrita e k=3) não servem para conclusão: elas rodaram com o modelo ainda em modo só CPU e com as mesmas perguntas, então o cache de prompt do Ollama reaproveitou a entrada (daí os 3587 tok/s). Corrigir isso exige descarregar o modelo e variar as perguntas entre as configurações, e está na lista de próximos passos.
+| Configuração | Camadas na GPU | Tokens de entrada | Prompt eval | Geração | Chamada ao LLM (mediana) |
+|---|---|---|---|---|---|
+| padrão (JSON Schema, GPU automática) | 25% | 599 | 82 tok/s | 3.1 tok/s | 23.4 s |
+| só CPU (`OLLAMA_NUM_GPU=0`) | 0% | 599 | 50 tok/s | **8.7 tok/s** | **17.7 s** |
+| sem decodificação restrita | 25% | 599 | 74 tok/s | 3.2 tok/s | 23.4 s |
+| contexto menor (k=3) | 25% | 460 | 67 tok/s | 3.2 tok/s | 21.9 s |
 
-O que reduziria a latência, em ordem de esforço: `OLLAMA_NUM_GPU=0` nesta máquina, menos itens no contexto, um prompt de sistema mais curto, um modelo menor (`qwen2.5:1.5b`), streaming da resposta para o usuário ver o texto antes, e GPU dedicada ou um provedor em nuvem.
+O que isso mostra:
+- **A divisão do modelo entre CPU e MX130 é o principal gargalo.** A GPU acelera o processamento do prompt (82 contra 50 tok/s), que é feito em lote, mas deixa a geração quase 3 vezes mais lenta. Na geração, cada token novo passa pelas camadas da CPU e da GPU, e os dados atravessam o barramento a cada token. Rodando só na CPU, a chamada cai cerca de 24%.
+- **A decodificação restrita quase não custa:** sem o JSON Schema a geração fica em 3.2 tok/s, contra 3.1 com ele. Ela garante JSON válido sem preço visível.
+- **Contexto menor ajuda pouco:** k=3 tira ~140 tokens de entrada e economiza ~1.5 s. Como o hit@3 do e5 é 96% contra 100% no hit@5, a troca custaria acerto.
+- Com 5 perguntas por configuração e um notebook sujeito a variação térmica (o prompt eval da linha padrão foi de 5.4 s para 10.5 s ao longo das 5 perguntas), diferenças de 1 a 2 s estão dentro do ruído; a da geração (3 contra 8.7 tok/s) não está.
+
+O que reduziria a latência, em ordem de esforço: `OLLAMA_NUM_GPU=0` nesta máquina, um prompt de sistema mais curto, um modelo menor (`qwen2.5:1.5b`), streaming da resposta para o usuário ver o texto antes, e GPU dedicada ou um provedor em nuvem.
 
 ## Decisões técnicas
 
