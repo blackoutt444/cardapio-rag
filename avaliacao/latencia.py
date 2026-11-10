@@ -10,9 +10,12 @@ e da geração.
   sem schema      sem decodificação restrita (o prompt continua pedindo JSON)
   k=3             contexto com 3 itens em vez de 5 (menos tokens de entrada)
 
-Cada configuração começa com uma chamada de aquecimento, descartada, que absorve a
-recarga do modelo quando a configuração de GPU muda. As perguntas são diferentes
-entre si para o cache de prompt do Ollama não mascarar o processamento do prompt.
+Antes de cada configuração o modelo é descarregado (keep_alive=0). Isso garante
+que cada uma começa com a divisão CPU/GPU padrão do Ollama (só a linha "só CPU" a
+muda) e que o cache de prompt da configuração anterior não é reaproveitado: sem
+isso, repetir as mesmas perguntas faria o processamento do prompt parecer
+instantâneo. Depois vem uma chamada de aquecimento, descartada, que absorve a carga
+do modelo e deixa em cache só o prompt de sistema, igual para todas as configurações.
 
 Uso:
   python -m avaliacao.latencia [--repeticoes 5]
@@ -30,7 +33,12 @@ import time
 import httpx
 from pydantic import ValidationError
 
-from avaliacao.avaliar import PASTA_RESULTADOS, metadados_execucao, metadados_ollama
+from avaliacao.avaliar import (
+    PASTA_RESULTADOS,
+    descarregar_modelo_ollama,
+    metadados_execucao,
+    metadados_ollama,
+)
 from cardapio_rag.assistente import SCHEMA_RESPOSTA
 from cardapio_rag.config import RAIZ, Config
 from cardapio_rag.dados import carregar_cardapio
@@ -105,6 +113,8 @@ def main() -> None:
     indice = IndiceVetorial(carregar_cardapio(config.cardapio_path), criar_embedder(config))
     perguntas = json.loads((RAIZ / "avaliacao" / "perguntas.json").read_text(encoding="utf-8"))["perguntas"]
     perguntas = [p["pergunta"] for p in perguntas[: args.repeticoes]]
+    # Lido antes das medições para registrar o commit que foi de fato medido.
+    meta = metadados_execucao(config, indice.embedder.nome)
 
     resultados = []
     for nome, cfg in CONFIGURACOES:
@@ -113,7 +123,8 @@ def main() -> None:
         def mensagem(pergunta: str, k: int = cfg["k"]) -> str:
             return montar_mensagem_usuario(pergunta, indice.buscar(pergunta, k=k))
 
-        print(f"{nome}: aquecendo...", file=sys.stderr, flush=True)
+        print(f"{nome}: descarregando o modelo e aquecendo...", file=sys.stderr, flush=True)
+        descarregar_modelo_ollama(config.ollama_url, modelo)
         medir(provedor, mensagem(AQUECIMENTO), cfg["schema"])
         medidas = []
         for i, pergunta in enumerate(perguntas, 1):
@@ -129,7 +140,6 @@ def main() -> None:
             }
         )
 
-    meta = metadados_execucao(config, indice.embedder.nome)
     meta.update(provedor="ollama", modelo=modelo, **metadados_ollama(config.ollama_url, modelo))
     meta.pop("fracao_em_gpu", None)  # varia por configuração; está em cada linha da tabela
 
