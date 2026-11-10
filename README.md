@@ -23,7 +23,6 @@ Você pergunta em linguagem natural ("tem hambúrguer vegano?") e a API:
 3. exige a resposta em um **JSON com schema definido**, valida com Pydantic e tenta de novo se vier inválido;
 4. confere se o LLM só citou itens que estavam no contexto (**fidelidade**) e descarta o que não estava.
 
-<!-- EXEMPLO -->
 
 ## Arquitetura
 
@@ -105,7 +104,65 @@ Os testes não usam rede nem modelo: o LLM é o `ProvedorFake`, os embeddings s�
 
 ## Avaliação
 
-<!-- RESULTADOS -->
+31 perguntas de referência em [`avaliacao/perguntas.json`](avaliacao/perguntas.json): 25 com resposta no cardápio e 6 sem (sushi, feijoada, horário...). Cada execução salva em [`avaliacao/resultados/`](avaliacao/resultados/) um `.json` com o resultado de cada pergunta e os metadados (data, commit, CPU, versão do Ollama, digest e quantização do modelo) e um `.md` com as tabelas.
+
+```bash
+python -m avaliacao.avaliar --somente-busca --embeddings hash   # baseline lexical
+python -m avaliacao.avaliar --somente-busca --embeddings e5     # busca semântica
+python -m avaliacao.avaliar --embeddings e5 --provedor ollama   # RAG completo
+python -m avaliacao.latencia                                     # benchmark de latência
+```
+
+O workflow [Avaliação](.github/workflows/avaliacao.yml) roda o RAG completo no CI, com Ollama num container e sem chave de API.
+
+### Busca (25 perguntas com resposta)
+
+| Embeddings | hit@1 | hit@3 | hit@5 | MRR |
+|---|---|---|---|---|
+| lexical (hash, baseline) | 76% | 88% | 96% | 0.84 |
+| `multilingual-e5-small` | 92% | 96% | 100% | 0.95 |
+
+Com k=5, o item certo chegou ao LLM em todas as perguntas.
+
+### RAG completo (`qwen2.5:3b` Q4_K_M, digest `357c53fb659c`, k=5)
+
+| Métrica | Notebook, commit `3f64719` | CI, commit `a24a1cd` ([run](https://github.com/blackoutt444/cardapio-rag/actions/runs/42737564841)) |
+|---|---|---|
+| JSON válido na 1ª tentativa | 100% | 100% |
+| Fidelidade (nenhum id fora do contexto) | 100% | 100% |
+| Acerto nas 25 perguntas com resposta | 96% | 92% |
+| Abstenção correta nas 6 sem resposta | 100% | 100% |
+| Precisão das citações | 96% (24 respostas) | — |
+| Preços no texto conferem com o cardápio | 100% (7 respostas) | — |
+
+O CI do commit `a24a1cd` ainda não tinha as duas últimas métricas. Mesmo com o mesmo modelo e `temperature=0`, o acerto mudou entre as duas máquinas: a saída de um LLM depende também do hardware e da ordem das operações de ponto flutuante.
+
+**Análise dos erros** (notebook, detalhes em `avaliacao/resultados/rag-e5-ollama-qwen2.5-3b-k5.json`):
+- **q24 "Quero um caldo de peixe":** o Caldo de piranha estava em 1º no contexto, mas o modelo respondeu que não encontrou. É uma abstenção falsa: o modelo de 3B não inferiu que piranha é peixe.
+- **Citações irrelevantes:** na q20 (falafel), o modelo citou também o tacacá; na q07 (leite de coco), citou um bolo que não leva coco. A fidelidade por id não pega isso, por isso existe a métrica de precisão das citações.
+- **Preço:** só 7 das 31 respostas citam o preço, apesar de o prompt pedir. Quando citam, o valor confere com o cardápio.
+
+### Latência
+
+Notebook (Intel i5-8265U com GeForce MX130 de 2 GB, Windows 11, na tomada), modelo já carregado, 30 perguntas:
+
+| Etapa | Mediana | p90 |
+|---|---|---|
+| Embedding da pergunta | 31 ms | 50 ms |
+| Busca (cosseno + filtros + ordenação) | 0.12 ms | 0.17 ms |
+| Montagem do prompt | 0.05 ms | 0.07 ms |
+| Chamada ao LLM | 26.5 s | 32.2 s |
+| &nbsp;&nbsp;↳ processamento do prompt (~582 tokens a 53 tok/s) | 10.8 s | 13.1 s |
+| &nbsp;&nbsp;↳ geração (~46 tokens a 3.0 tok/s) | 15.2 s | 21.6 s |
+| **Total** | 26.5 s | 32.3 s |
+
+Com o modelo frio, a primeira pergunta levou 36.0 s, dos quais 7.3 s para carregar o modelo. A recuperação inteira custa menos de 0.2% do tempo: o gargalo é a inferência do LLM. No CI (AMD EPYC, 4 vCPUs, só CPU), o mesmo pipeline levou 9.3 s de mediana, com geração a 15.3 tok/s.
+
+O [benchmark](avaliacao/latencia.py) ([resultado](avaliacao/resultados/latencia-ollama-qwen2.5-3b.md)) mostra por que o notebook gera tão devagar. Nele, o Ollama colocou 25% do modelo na MX130 e, com o modelo dividido entre CPU e GPU, a geração ficou em **3.0 tok/s**. Forçando só CPU (`OLLAMA_NUM_GPU=0`), a geração subiu para **6.7 tok/s**, mas o processamento do prompt caiu de 90 para 52 tok/s. Na soma, a chamada caiu de 23.6 s para 20.6 s.
+
+As outras duas linhas do benchmark (sem decodificação restrita e k=3) não servem para conclusão: elas rodaram com o modelo ainda em modo só CPU e com as mesmas perguntas, então o cache de prompt do Ollama reaproveitou a entrada (daí os 3587 tok/s). Corrigir isso exige descarregar o modelo e variar as perguntas entre as configurações, e está na lista de próximos passos.
+
+O que reduziria a latência, em ordem de esforço: `OLLAMA_NUM_GPU=0` nesta máquina, menos itens no contexto, um prompt de sistema mais curto, um modelo menor (`qwen2.5:1.5b`), streaming da resposta para o usuário ver o texto antes, e GPU dedicada ou um provedor em nuvem.
 
 ## Decisões técnicas
 
