@@ -1,0 +1,70 @@
+name: Avaliação
+
+# Roda as perguntas de referência no RAG completo, com LLM local (Ollama) e sem chave
+# de API. Leva alguns minutos, por isso só roda quando o código, os dados ou as
+# perguntas mudam, ou manualmente. As tabelas aparecem no resumo do run e os
+# resultados por pergunta ficam no artefato "resultados-avaliacao".
+
+on:
+  pull_request:
+    paths:
+      - "cardapio_rag/**"
+      - "avaliacao/*.py"
+      - "avaliacao/perguntas.json"
+      - "dados/**"
+      - "requirements*.txt"
+      - ".github/workflows/avaliacao.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: avaliacao-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  avaliar:
+    name: Busca (hash e e5) e RAG (e5 + qwen2.5:3b)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    services:
+      ollama:
+        image: ollama/ollama:0.40.15
+        ports:
+          - 11434:11434
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependências (PyTorch só de CPU)
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-embeddings.txt
+
+      - name: Cache do modelo de embeddings
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/huggingface
+          key: hf-multilingual-e5-small
+
+      - name: Baixar qwen2.5:3b no Ollama
+        run: |
+          for i in $(seq 1 30); do curl -sf http://localhost:11434/api/version && break; sleep 2; done
+          curl -sf http://localhost:11434/api/pull -d '{"model": "qwen2.5:3b", "stream": false}'
+
+      - name: Busca lexical (baseline)
+        run: python -m avaliacao.avaliar --somente-busca --embeddings hash
+
+      - name: Busca semântica
+        run: python -m avaliacao.avaliar --somente-busca --embeddings e5
+
+      - name: RAG completo
+        run: python -m avaliacao.avaliar --embeddings e5 --provedor ollama
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: resultados-avaliacao
+          path: avaliacao/resultados/

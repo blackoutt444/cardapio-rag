@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Testes (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      # Sem sentence-transformers/PyTorch: os testes usam o embedder lexical e o LLM falso.
+      - name: Instalar dependências
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint (ruff)
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Rodar testes
+        run: pytest -v
+
+      - name: Avaliação da busca lexical (sem LLM)
+        run: python -m avaliacao.avaliar --somente-busca --embeddings hash
+
+  docker:
+    name: Imagem Docker
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build
+        run: docker build -t cardapio-rag .
+
+      - name: Subir o container e checar /saude
+        run: |
+          docker run -d --name api -p 8000:8000 -e LLM_PROVEDOR=fake -e EMBEDDINGS=hash cardapio-rag
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:8000/saude && exit 0
+            sleep 1
+          done
+          docker logs api
+          exit 1
