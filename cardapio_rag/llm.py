@@ -70,7 +70,10 @@ def _post_json(
 
 class ProvedorOllama:
     """LLM local via Ollama. O campo "format" recebe o JSON Schema e o Ollama restringe
-    a geração para que a saída siga o schema (decodificação restrita)."""
+    a geração para que a saída siga o schema (decodificação restrita).
+
+    `opcoes` vai junto em "options" (ex.: {"num_gpu": 0} para rodar só na CPU). Um
+    schema vazio desliga a decodificação restrita; o benchmark de latência usa isso."""
 
     nome = "ollama"
 
@@ -80,22 +83,25 @@ class ProvedorOllama:
         url: str = "http://localhost:11434",
         timeout_s: float = 180.0,
         cliente: httpx.Client | None = None,
+        opcoes: dict[str, Any] | None = None,
     ) -> None:
         self.modelo = modelo
         self.url = url.rstrip("/")
         self.cliente = cliente or httpx.Client(timeout=timeout_s)
+        self.opcoes = opcoes or {}
 
     def gerar_json(self, sistema: str, usuario: str, schema: dict[str, Any]) -> Geracao:
-        corpo = {
+        corpo: dict[str, Any] = {
             "model": self.modelo,
             "stream": False,
-            "format": schema,
-            "options": {"temperature": 0},
+            "options": {"temperature": 0, **self.opcoes},
             "messages": [
                 {"role": "system", "content": sistema},
                 {"role": "user", "content": usuario},
             ],
         }
+        if schema:
+            corpo["format"] = schema
         dados = _post_json(self.cliente, f"{self.url}/api/chat", corpo)
         # O Ollama informa as durações em nanossegundos.
         return Geracao(
@@ -233,7 +239,8 @@ def criar_provedor(config: Config) -> ProvedorLLM:
     modelo = config.llm_modelo or MODELOS_PADRAO[nome]
 
     if nome == "ollama":
-        return ProvedorOllama(modelo, config.ollama_url, config.llm_timeout_s)
+        opcoes = {"num_gpu": config.ollama_num_gpu} if config.ollama_num_gpu is not None else None
+        return ProvedorOllama(modelo, config.ollama_url, config.llm_timeout_s, opcoes=opcoes)
     if nome == "fake":
         return ProvedorFake()
 

@@ -48,6 +48,21 @@ def test_ollama_envia_schema_no_campo_format():
     assert [m["role"] for m in corpo["messages"]] == ["system", "user"]
 
 
+def test_ollama_repassa_opcoes_e_aceita_schema_vazio():
+    cliente = cliente_simulado(lambda r: httpx.Response(200, json={"message": {"content": RESPOSTA}}))
+    ProvedorOllama(cliente=cliente, opcoes={"num_gpu": 0}).gerar_json("s", "u", {})
+
+    corpo = json.loads(cliente.requisicoes[0].content)
+    assert corpo["options"] == {"temperature": 0, "num_gpu": 0}
+    assert "format" not in corpo  # sem schema: sem decodificação restrita
+
+
+def test_fabrica_passa_num_gpu_para_o_ollama():
+    provedor = criar_provedor(Config(llm_provedor="ollama", ollama_num_gpu=0))
+    assert provedor.opcoes == {"num_gpu": 0}
+    assert criar_provedor(Config(llm_provedor="ollama")).opcoes == {}
+
+
 def test_ollama_converte_tempos_e_tokens():
     # Formato real do /api/chat: durações em nanossegundos.
     dados = {

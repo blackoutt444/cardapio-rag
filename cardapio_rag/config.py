@@ -16,6 +16,8 @@ class Config:
     # None = usa o modelo padrão do provedor (veja llm.MODELOS_PADRAO).
     llm_modelo: str | None = None
     ollama_url: str = "http://localhost:11434"
+    # Quantas camadas do modelo vão para a GPU. None = o Ollama decide; 0 = só CPU.
+    ollama_num_gpu: int | None = None
     llm_timeout_s: float = 180.0
     # Como os textos viram vetores: "e5" (semântico, local) ou "hash" (lexical, sem dependências).
     embeddings: str = "e5"
@@ -29,6 +31,7 @@ class Config:
             llm_provedor=os.getenv("LLM_PROVEDOR", cls.llm_provedor).lower(),
             llm_modelo=os.getenv("LLM_MODELO") or None,
             ollama_url=os.getenv("OLLAMA_URL", cls.ollama_url),
+            ollama_num_gpu=int(os.environ["OLLAMA_NUM_GPU"]) if os.getenv("OLLAMA_NUM_GPU") else None,
             llm_timeout_s=float(os.getenv("LLM_TIMEOUT_S", cls.llm_timeout_s)),
             embeddings=os.getenv("EMBEDDINGS", cls.embeddings).lower(),
             embeddings_modelo=os.getenv("EMBEDDINGS_MODELO", cls.embeddings_modelo),
