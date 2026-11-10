@@ -79,6 +79,7 @@ curl -X POST http://localhost:8000/perguntar \
 | `LLM_PROVEDOR` | `ollama` | `ollama`, `openai`, `anthropic` ou `fake` |
 | `LLM_MODELO` | depende do provedor | `qwen2.5:3b` no Ollama |
 | `OLLAMA_URL` | `http://localhost:11434` | Endereço do Ollama |
+| `OLLAMA_NUM_GPU` | o Ollama decide | Camadas do modelo na GPU; `0` roda só na CPU (veja a seção de latência) |
 | `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` | — | Só se usar esses provedores |
 | `EMBEDDINGS` | `e5` | `e5` (semântico) ou `hash` (lexical, sem download) |
 | `EMBEDDINGS_MODELO` | `intfloat/multilingual-e5-small` | Qualquer modelo E5 do Hugging Face |
@@ -126,20 +127,23 @@ Com k=5, o item certo chegou ao LLM em todas as perguntas.
 
 ### RAG completo (`qwen2.5:3b` Q4_K_M, digest `357c53fb659c`, k=5)
 
-| Métrica | Notebook, commit `3f64719` | CI, commit `a24a1cd` ([run](https://github.com/blackoutt444/cardapio-rag/actions/runs/42737564841)) |
+Os dois lados avaliaram o mesmo código (commit `3f64719`). O CI roda sobre o merge temporário do pull request (`61f3ab8` = `main` + `3f64719`), por isso esse é o commit que aparece nos metadados do run.
+
+| Métrica | Notebook (i5-8265U) | CI, AMD EPYC ([run 42739591694](https://github.com/blackoutt444/cardapio-rag/actions/runs/42739591694)) |
 |---|---|---|
 | JSON válido na 1ª tentativa | 100% | 100% |
 | Fidelidade (nenhum id fora do contexto) | 100% | 100% |
 | Acerto nas 25 perguntas com resposta | 96% | 92% |
 | Abstenção correta nas 6 sem resposta | 100% | 100% |
-| Precisão das citações | 96% (24 respostas) | — |
-| Preços no texto conferem com o cardápio | 100% (7 respostas) | — |
+| Precisão das citações (24 respostas com citação) | 96% | 92% |
+| Preços no texto conferem com o cardápio (7 respostas com preço) | 100% | 100% |
 
-O CI do commit `a24a1cd` ainda não tinha as duas últimas métricas. Mesmo com o mesmo modelo e `temperature=0`, o acerto mudou entre as duas máquinas: a saída de um LLM depende também do hardware e da ordem das operações de ponto flutuante.
+Mesmo com o mesmo modelo e `temperature=0`, as duas máquinas deram respostas diferentes em algumas perguntas: a saída de um LLM depende também do hardware e da ordem das operações de ponto flutuante. Por isso a tabela mostra as duas execuções em vez de um número só.
 
-**Análise dos erros** (notebook, detalhes em `avaliacao/resultados/rag-e5-ollama-qwen2.5-3b-k5.json`):
-- **q24 "Quero um caldo de peixe":** o Caldo de piranha estava em 1º no contexto, mas o modelo respondeu que não encontrou. É uma abstenção falsa: o modelo de 3B não inferiu que piranha é peixe.
-- **Citações irrelevantes:** na q20 (falafel), o modelo citou também o tacacá; na q07 (leite de coco), citou um bolo que não leva coco. A fidelidade por id não pega isso, por isso existe a métrica de precisão das citações.
+**Análise dos erros** (detalhes por pergunta em [`avaliacao/resultados/rag-e5-ollama-qwen2.5-3b-k5.json`](avaliacao/resultados/rag-e5-ollama-qwen2.5-3b-k5.json) e no artefato do run):
+- **q24 "Quero um caldo de peixe" (nas duas máquinas):** o Caldo de piranha estava em 1º no contexto, mas o modelo respondeu que não encontrou. É uma abstenção falsa: o modelo de 3B não inferiu que piranha é peixe.
+- **q15 "acompanhamento para o hambúrguer" (só no CI):** os anéis de cebola estavam no contexto, mas o modelo citou um hambúrguer.
+- **Citações irrelevantes:** na q20 (falafel), o modelo citou também o tacacá, nas duas máquinas; na q07 (notebook) citou um bolo que não leva coco e na q22 (CI) uma bruschetta junto com o nhoque. A fidelidade por id não pega isso, por isso existe a métrica de precisão das citações.
 - **Preço:** só 7 das 31 respostas citam o preço, apesar de o prompt pedir. Quando citam, o valor confere com o cardápio.
 
 ### Latência
@@ -156,7 +160,7 @@ Notebook (Intel i5-8265U com GeForce MX130 de 2 GB, Windows 11, na tomada), mode
 | &nbsp;&nbsp;↳ geração (~46 tokens a 3.0 tok/s) | 15.2 s | 21.6 s |
 | **Total** | 26.5 s | 32.3 s |
 
-Com o modelo frio, a primeira pergunta levou 36.0 s, dos quais 7.3 s para carregar o modelo. A recuperação inteira custa menos de 0.2% do tempo: o gargalo é a inferência do LLM. No CI (AMD EPYC, 4 vCPUs, só CPU), o mesmo pipeline levou 9.3 s de mediana, com geração a 15.3 tok/s.
+Com o modelo frio, a primeira pergunta levou 36.0 s, dos quais 7.3 s para carregar o modelo. A recuperação inteira custa menos de 0.2% do tempo: o gargalo é a inferência do LLM. No CI (AMD EPYC, 4 vCPUs, só CPU, [run 42739591694](https://github.com/blackoutt444/cardapio-rag/actions/runs/42739591694)), o mesmo pipeline levou 9.2 s de mediana: 6.4 s de prompt eval a 93 tok/s e 2.8 s de geração a 15.6 tok/s.
 
 O [benchmark](avaliacao/latencia.py) ([resultado](avaliacao/resultados/latencia-ollama-qwen2.5-3b.md)) mostra por que o notebook gera tão devagar. Nele, o Ollama colocou 25% do modelo na MX130 e, com o modelo dividido entre CPU e GPU, a geração ficou em **3.0 tok/s**. Forçando só CPU (`OLLAMA_NUM_GPU=0`), a geração subiu para **6.7 tok/s**, mas o processamento do prompt caiu de 90 para 52 tok/s. Na soma, a chamada caiu de 23.6 s para 20.6 s.
 
