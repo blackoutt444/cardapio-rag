@@ -195,7 +195,7 @@ O que reduziria a latência, em ordem de esforço: `OLLAMA_NUM_GPU=0` nesta máq
 ## Limitações
 
 - **Dados e perguntas pequenos e escritos por mim.** São 51 itens e 31 perguntas. Os números mostram tendência, não têm significância estatística, e as perguntas podem ter o viés de quem conhece o cardápio.
-- **A métrica de fidelidade só olha os ids.** Ela não pega um preço ou ingrediente inventado dentro do texto da resposta. Um próximo passo seria checar os preços citados contra o item ou usar um LLM como juiz.
+- **O texto da resposta é conferido só em parte.** A avaliação checa os ids citados (fidelidade e precisão das citações) e os preços que aparecem no texto, mas não pega um ingrediente ou descrição inventados. Um próximo passo seria usar um LLM como juiz para essa parte.
 - **Perguntas de agregação** ("qual o prato vegano mais barato?") dependem de o item certo estar entre os k recuperados. Para isso, um filtro estruturado ou uma ferramenta de consulta seriam melhores que busca semântica.
 - **Latência.** Um modelo de 3B em CPU de notebook leva segundos por resposta. Com GPU ou com um provedor em nuvem cai bastante.
 - **OpenAI e Anthropic** foram testados só com respostas simuladas, porque não usei chave paga.
